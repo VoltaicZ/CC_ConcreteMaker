@@ -33,16 +33,17 @@ Size will also be a table {x,y}
 IsVisible is just a boolean to sya if the button will immediately be visible
 Color is a string color from the global color library
 ]]
-function ButtonManager.CreateButton(Position, Size, IsVisible, Color)
+function ButtonManager.CreateButton(Position, Size, IsVisible, Color, Text)
     local Monitor = peripheral.wrap(MonitorSide)
     if not Monitor then
         print("Monitor not found on: "..MonitorSide)
     end
 
     local NewButtonObject = setmetatable({}, ButtonClass)
-    NewButtonObject.Window = window.create(Monitor, Position[1], Position[2], Size[1], Size[2], IsVisible)
-    NewButtonObject.Window.setTextColor(colors.black)
-    NewButtonObject.Window.setBackgroundColor(colors[Color])
+    NewButtonObject.WindowInstance = window.create(Monitor, Position[1], Position[2], Size[1], Size[2], IsVisible)
+    NewButtonObject.WindowInstance.setTextColor(colors.black)
+    NewButtonObject.WindowInstance.setBackgroundColor(colors[Color])
+    NewButtonObject.WindowInstance.write(Text)
 
     return NewButtonObject
 end
