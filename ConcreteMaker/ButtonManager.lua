@@ -3,6 +3,7 @@ local ButtonManager = {}
 local CurrentButtons = {}
 
 local MonitorSide = ""
+local Monitor 
 local ButtonPressThread 
 
 local ButtonClass = {}
@@ -32,9 +33,9 @@ local function ListenForPress()
                     if YPos > ButtonPositionY and YPos < ButtonPositionY+ButtonSizeY then -- within y bounds
                         --// Button was pressed
                         ButtonObject.Callback()
-                        NewButtonObject.WindowInstance.setBackgroundColor(colors.white)
+                        ButtonObject.WindowInstance.setBackgroundColor(colors.white)
                         os.sleep(0.1)
-                        NewButtonObject.WindowInstance.setBackgroundColor(colors[NewButtonObject.Color])
+                        ButtonObject.WindowInstance.setBackgroundColor(colors[NewButtonObject.Color])
                     end
                 end
             end
@@ -44,13 +45,10 @@ local function ListenForPress()
 end
 
 function ButtonManager.Init(NewMonitorSide)
-    if ButtonPressThread then
-        coroutine.close(ButtonPressThread)
-    end
 
+    Monitor = peripheral.wrap(NewMonitorSide)
     MonitorSide = NewMonitorSide
-    ButtonPressThread = coroutine.create(ListenForPress)
-    coroutine.resume(ButtonPressThread)
+    parallel.waitForAny(ListenForPress)
 end
 
 --[[
@@ -60,11 +58,6 @@ IsVisible is just a boolean to sya if the button will immediately be visible
 Color is a string color from the global color library
 ]]
 function ButtonManager.CreateButton(Position, Size, IsVisible, Color, Text, Callback)
-    local Monitor = peripheral.wrap(MonitorSide)
-    if not Monitor then
-        print("Monitor not found on: "..MonitorSide)
-    end
-
     local NewButtonObject = setmetatable({}, ButtonClass)
     NewButtonObject.WindowInstance = window.create(Monitor, Position[1], Position[2], Size[1], Size[2], IsVisible)
     NewButtonObject.WindowInstance.setTextColor(colors.black)
