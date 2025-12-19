@@ -14,9 +14,6 @@ local FILES = {
 if not fs.exists("CC_ConcreteMaker") then
     fs.makeDir("CC_ConcreteMaker")
 end
-if not fs.exists("CC_ConcreteMaker/lib") then
-    fs.makeDir("CC_ConcreteMaker/lib")
-end
 
 -- Download each file
 for _, file in ipairs(FILES) do
@@ -41,10 +38,8 @@ for _, file in ipairs(FILES) do
     end
 
     print("Downloading " .. file .. " ...")
-    local success = shell.run("wget", BASE_URL .. file .. CACHE_BUST, "CC_ConcreteMaker/" .. file)
+    local success = shell.run("wget ".. BASE_URL .. file .. CACHE_BUST, "CC_ConcreteMaker/" .. file)
     if not success then
         print("Failed to download: " .. file)
     end
 end
-
-print("Installation complete! Run your program with")
