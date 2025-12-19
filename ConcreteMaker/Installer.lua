@@ -9,13 +9,9 @@ local FILES = {
 }
 
 -- Create necessary directories
-if not fs.exists("CC_ConcreteMaker") then fs.makeDir("CC_ConcreteMaker") end
+if  fs.exists("CC_ConcreteMaker") then shell.run("rm CC_ConcreteMaker") end
 
 for _, file in ipairs(FILES) do
-    -- Remove old file
-    if fs.exists("CC_ConcreteMaker/" .. file) then
-        fs.delete("CC_ConcreteMaker/" .. file)
-    end
 
     -- Make sure parent folders exist
     local pathParts = {}
