@@ -46,6 +46,8 @@ function ButtonManager.Init(NewMonitorSide)
 
     Monitor = peripheral.wrap(NewMonitorSide)
     MonitorSide = NewMonitorSide
+
+    Monitor.clear()
 end
 
 --[[
