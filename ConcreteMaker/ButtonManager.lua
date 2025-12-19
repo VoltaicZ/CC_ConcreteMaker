@@ -12,8 +12,6 @@ ButtonClass.__index = ButtonClass
 function ButtonManager.ListenForPress()
     while true do
         local _, Side, XPos, YPos = os.pullEvent("monitor_touch")
-        print(Side, XPos, YPos)
-        print(MonitorSide)
         if Side == MonitorSide then
             
             for _, ButtonObject in pairs(CurrentButtons) do
@@ -35,7 +33,7 @@ function ButtonManager.ListenForPress()
                         ButtonObject.Callback()
                         ButtonObject.WindowInstance.setBackgroundColor(colors.white)
                         os.sleep(0.1)
-                        ButtonObject.WindowInstance.setBackgroundColor(colors[NewButtonObject.Color])
+                        ButtonObject.WindowInstance.setBackgroundColor(colors[ButtonObject.Color])
                     end
                 end
             end
