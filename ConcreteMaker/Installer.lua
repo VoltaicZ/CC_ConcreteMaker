@@ -1,7 +1,7 @@
 -- install.lua for CC_ConcreteMaker
 -- Usage: wget run <raw-url-to-install.lua>
 
-local BASE_URL = "https://raw.githubusercontent.com/VoltaicZ/CC_ConcreteMaker/main/"
+local BASE_URL = "https://raw.githubusercontent.com/VoltaicZ/CC_ConcreteMaker/"
 local CACHE_BUST = "?ts=" .. os.time()  -- force fresh download
 
 -- List of files to download (update this if you add more)
@@ -47,4 +47,4 @@ for _, file in ipairs(FILES) do
     end
 end
 
-print("Installation complete! Run your program with:")
+print("Installation complete! Run your program with")
