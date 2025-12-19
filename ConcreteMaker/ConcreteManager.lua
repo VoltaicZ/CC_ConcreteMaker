@@ -4,7 +4,7 @@ local ButtonManager = require("ButtonManager")
 --//Vars
 
 ButtonManager.Init("back")
-ButtonManager.CreateButton({1,1}, {7,6}, true, "blue", "Hello World", 
+ButtonManager.CreateButton({1,1}, {6.5,12}, true, "blue", "Hello World", 
 function() 
     print("Button Pressed") 
 end)

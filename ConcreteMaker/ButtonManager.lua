@@ -32,13 +32,12 @@ function ButtonManager.ListenForPress()
                         --// Button was pressed
                         ButtonObject.Callback()
                         ButtonObject.WindowInstance.setBackgroundColor(colors.white)
-                        os.sleep(0.1)
+                        os.sleep(0.5)
                         ButtonObject.WindowInstance.setBackgroundColor(colors[ButtonObject.Color])
                     end
                 end
             end
         end
-        os.sleep(0.1)
     end
 end
 
