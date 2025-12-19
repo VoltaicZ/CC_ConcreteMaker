@@ -9,7 +9,7 @@ local ButtonPressThread
 local ButtonClass = {}
 ButtonClass.__index = ButtonClass
 
-local function ListenForPress()
+function ButtonManager.ListenForPress()
     while true do
         local _, Side, XPos, YPos = os.pullEvent("monitor_touch")
         print(Side, XPos, YPos)
@@ -48,7 +48,6 @@ function ButtonManager.Init(NewMonitorSide)
 
     Monitor = peripheral.wrap(NewMonitorSide)
     MonitorSide = NewMonitorSide
-    parallel.waitForAny(ListenForPress)
 end
 
 --[[
