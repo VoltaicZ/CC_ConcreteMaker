@@ -1,6 +1,6 @@
 -- install.lua for CC_ConcreteMaker
 
-local BASE_URL = "https://raw.githubusercontent.com/VoltaicZ/CC_ConcreteMaker/main/"
+local BASE_URL = "https://raw.githubusercontent.com/VoltaicZ/CC_ConcreteMaker/"
 
 -- List of files to download
 local FILES = {
