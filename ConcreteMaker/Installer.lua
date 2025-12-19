@@ -1,45 +1,47 @@
 -- install.lua for CC_ConcreteMaker
--- Usage: wget run <raw-url-to-install.lua>
 
-local BASE_URL = "https://raw.githubusercontent.com/VoltaicZ/CC_ConcreteMaker/"
-local CACHE_BUST = "?ts=" .. os.time()  -- force fresh download
+local BASE_URL = "https://raw.githubusercontent.com/VoltaicZ/CC_ConcreteMaker/main/"
 
--- List of files to download (update this if you add more)
+-- List of files to download
 local FILES = {
     "ConcreteManager.lua",
     "ButtonManager.lua"
 }
 
 -- Create necessary directories
-if not fs.exists("CC_ConcreteMaker") then
-    fs.makeDir("CC_ConcreteMaker")
-end
+if not fs.exists("CC_ConcreteMaker") then fs.makeDir("CC_ConcreteMaker") end
 
--- Download each file
 for _, file in ipairs(FILES) do
-    -- remove old version if exists
+    -- Remove old file
     if fs.exists("CC_ConcreteMaker/" .. file) then
         fs.delete("CC_ConcreteMaker/" .. file)
     end
 
-    -- Ensure parent folder exists for subfiles
-    local parts = {}
-    for part in string.gmatch(file, "[^/]+") do
-        table.insert(parts, part)
-    end
-    if #parts > 1 then
+    -- Make sure parent folders exist
+    local pathParts = {}
+    for part in string.gmatch(file, "[^/]+") do table.insert(pathParts, part) end
+    if #pathParts > 1 then
         local path = "CC_ConcreteMaker"
-        for i = 1, #parts - 1 do
-            path = path .. "/" .. parts[i]
-            if not fs.exists(path) then
-                fs.makeDir(path)
-            end
+        for i = 1, #pathParts-1 do
+            path = path .. "/" .. pathParts[i]
+            if not fs.exists(path) then fs.makeDir(path) end
         end
     end
 
     print("Downloading " .. file .. " ...")
-    local success = shell.run("wget ".. BASE_URL .. file .. CACHE_BUST, "CC_ConcreteMaker/" .. file)
-    if not success then
-        print("Failed to download: " .. file)
-    end
+    shell.run("wget", BASE_URL .. file, "CC_ConcreteMaker/" .. file)
 end
+
+-- Create launcher in root for one-command run
+local launcher = [[
+-- Launcher for CC_ConcreteMaker
+shell.run("CC_ConcreteMaker/concretemanager.lua")
+]]
+if fs.exists("concretemanager") then fs.delete("concretemanager") end
+local f = fs.open("concretemanager", "w")
+f.write(launcher)
+f.close()
+
+print("Installation complete!")
+print("Run your program from anywhere with:")
+print("concretemanager")
