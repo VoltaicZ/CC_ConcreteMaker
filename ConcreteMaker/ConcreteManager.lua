@@ -8,7 +8,7 @@ local ButtonWidth = 6
 local ButtonHeight = 2
 
 local ActualDimenstions = {
-    Width-ButButtonWidth+1,
+    Width-ButtonWidth+1,
     Height-ButtonHeight+1
 }
 
