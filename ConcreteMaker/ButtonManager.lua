@@ -11,6 +11,8 @@ ButtonClass.__index = ButtonClass
 local function ListenForPress()
     while true do
         local _, Side, XPos, YPos = os.pullEvent("monitor_touch")
+        print(Side, XPos, YPos)
+        print(MonitorSide)
         if Side == MonitorSide then
             
             for _, ButtonObject in pairs(CurrentButtons) do
@@ -37,6 +39,7 @@ local function ListenForPress()
                 end
             end
         end
+        os.sleep(0.1)
     end
 end
 
