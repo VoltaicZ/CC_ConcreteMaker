@@ -18,6 +18,13 @@ local function ListenForPress()
                 local ButtonPositionY = ButtonObject.Position[2]
                 local ButtonSizeX = ButtonObject.Size[1]
                 local ButtonSizeY = ButtonObject.Size[2]
+                
+                print(XPos, YPos)
+
+                print("X:", ButtonPositionX, ButtonSizeX)
+                print("Y:", ButtonPositionY, ButtonSizeY)
+                print("XBounds: ", XPos > ButtonPositionX, XPos < ButtonPositionX+ButtonSizeX)
+                print("YBounds: ", YPos > ButtonPositionY, YPos < ButtonPositionY+ButtonSizeY)
 
                 if XPos > ButtonPositionX and XPos < ButtonPositionX+ButtonSizeX then -- within x bounds
                     if YPos > ButtonPositionY and YPos < ButtonPositionY+ButtonSizeY then -- within y bounds
