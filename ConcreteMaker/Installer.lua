@@ -1,7 +1,50 @@
-fs.makeDir("CC_ConcreteMaker")
+-- install.lua for CC_ConcreteMaker
+-- Usage: wget run <raw-url-to-install.lua>
 
-print("Downloading Files...")
-shell.run("wget https://raw.githubusercontent.com/VoltaicZ/CC_ConcreteMaker/refs/heads/main/ConcreteMaker/ConcreteManager.lua CC_ConcreteMaker/ConcreteManager.lua")
-print("Downloaded ConcreteManager.lua...")
-shell.run("wget https://raw.githubusercontent.com/VoltaicZ/CC_ConcreteMaker/refs/heads/main/ConcreteMaker/ButtonManager.lua CC_ConcreteMaker/ButtonManager.lua")
-print("Downloaded ButtonManager.lua...")
+local BASE_URL = "https://raw.githubusercontent.com/VoltaicZ/CC_ConcreteMaker/main/"
+local CACHE_BUST = "?ts=" .. os.time()  -- force fresh download
+
+-- List of files to download (update this if you add more)
+local FILES = {
+    "ConcreteManager.lua",
+    "ButtonManager.lua"
+}
+
+-- Create necessary directories
+if not fs.exists("CC_ConcreteMaker") then
+    fs.makeDir("CC_ConcreteMaker")
+end
+if not fs.exists("CC_ConcreteMaker/lib") then
+    fs.makeDir("CC_ConcreteMaker/lib")
+end
+
+-- Download each file
+for _, file in ipairs(FILES) do
+    -- remove old version if exists
+    if fs.exists("CC_ConcreteMaker/" .. file) then
+        fs.delete("CC_ConcreteMaker/" .. file)
+    end
+
+    -- Ensure parent folder exists for subfiles
+    local parts = {}
+    for part in string.gmatch(file, "[^/]+") do
+        table.insert(parts, part)
+    end
+    if #parts > 1 then
+        local path = "CC_ConcreteMaker"
+        for i = 1, #parts - 1 do
+            path = path .. "/" .. parts[i]
+            if not fs.exists(path) then
+                fs.makeDir(path)
+            end
+        end
+    end
+
+    print("Downloading " .. file .. " ...")
+    local success = shell.run("wget", BASE_URL .. file .. CACHE_BUST, "CC_ConcreteMaker/" .. file)
+    if not success then
+        print("Failed to download: " .. file)
+    end
+end
+
+print("Installation complete! Run your program with:")
