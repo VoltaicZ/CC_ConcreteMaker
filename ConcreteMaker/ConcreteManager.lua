@@ -7,7 +7,7 @@ local Width, Height = Monitor.getSize()
 
 
 ButtonManager.Init("back")
-ButtonManager.CreateButton({1,1}, {6,1}, true, "blue", "Hello World", 
+ButtonManager.CreateButton({1,2}, {6,1}, true, "blue", "Hello World", 
 function() 
     print("Button Pressed") 
 end)

@@ -24,11 +24,11 @@ function ButtonManager.ListenForPress()
 
                 print("X:", ButtonPositionX, ButtonSizeX)
                 print("Y:", ButtonPositionY, ButtonSizeY)
-                print("XBounds: ", XPos > ButtonPositionX, XPos < ButtonPositionX+ButtonSizeX)
-                print("YBounds: ", YPos > ButtonPositionY, YPos < ButtonPositionY+ButtonSizeY)
+                print("XBounds: ", XPos >= ButtonPositionX, XPos <= ButtonPositionX+ButtonSizeX)
+                print("YBounds: ", YPos >= ButtonPositionY, YPos <= ButtonPositionY+ButtonSizeY)
 
-                if XPos >= ButtonPositionX and XPos <= ButtonPositionX+ButtonSizeX then -- within x bounds
-                    if YPos >= ButtonPositionY and YPos <= ButtonPositionY+ButtonSizeY then -- within y bounds
+                if XPos >= ButtonPositionX and XPos <= ButtonPositionX+ButtonSizeX-1 then -- within x bounds
+                    if YPos >= ButtonPositionY and YPos <= ButtonPositionY+ButtonSizeY-1 then -- within y bounds
                         --// Button was pressed
                         ButtonObject.Callback()
                         ButtonObject.WindowInstance.setBackgroundColor(colors.white)
